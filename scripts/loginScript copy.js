@@ -2,9 +2,10 @@ const emailInput = document.querySelector('.email');
 const passWordInput = document.querySelector('.Password');
 const logInBtn = document.querySelector('.logIn-btn')
 const Url = 'http://localhost:3000'
+const UrlWebType = 'https://space-eye-web-surver.onrender.com'
 
 function logIn(a,b){
-    axios.post(Url + '/login', {
+    axios.post(UrlWebType + '/login', {
         'email': a,
         'password': b,
     }).then(function(response){
@@ -13,9 +14,9 @@ function logIn(a,b){
         const usersId = response.data.user.id;
         localStorage.setItem('token', token);
         localStorage.setItem('usersId', usersId);
-        document.querySelector('.btn2').style.display = 'block';
-        document.querySelector('.btn1').style.display = 'none';
-        // window.location.href = 'http://127.0.0.1:5501/HtmlPage/carOwner.html';
+        // document.querySelector('.btn2').style.display = 'block';
+        // document.querySelector('.btn1').style.display = 'none';
+        window.location.href = '/findSpace.html';
         emailInput.value = '';
         passWordInput.value = '';
     }).catch(function(err){

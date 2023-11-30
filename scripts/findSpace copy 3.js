@@ -203,7 +203,7 @@ let optionPark = '';
 // export default optionPark;
 
 // 在后续请求中，将 token 添加到请求头中
-axios.get(Url + `/600/users/${usersId}`, {
+axios.get(UrlWebType + `/600/users/${usersId}`, {
     headers: {
         Authorization: `Bearer ${token}`,
         },
@@ -355,7 +355,7 @@ showAllPark.addEventListener('show.bs.modal' , function (e) {
 //取得區域資料
 let sectionData = [];
 const getSection = () => {
-    axios.get(Url + '/sections')
+    axios.get(UrlWebType + '/sections')
     .then(function(res){
         sectionData = res.data;
         showSectionList()
@@ -390,7 +390,7 @@ areaOption.addEventListener('click', (event) => {
 //取得道路資料
 let roadData = [];
 const getRoad = (roadIdInData) => {
-    axios.get(Url + '/roads')
+    axios.get(UrlWebType + '/roads')
     .then(function(res){
         roadData = res.data;
         const equalId = roadData.filter((item) => {
@@ -418,7 +418,7 @@ const showRoadOptionList = (a) => {
 }
 //取得停車場資訊
 const getMap = () => {
-    axios.get(Url + '/parks?_expand=road')
+    axios.get(UrlWebType + '/parks?_expand=road')
     .then(function(res){
         data = res.data
         console.log(data)
