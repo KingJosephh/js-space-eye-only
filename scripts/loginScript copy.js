@@ -16,7 +16,7 @@ function logIn(a,b){
         localStorage.setItem('usersId', usersId);
         // document.querySelector('.btn2').style.display = 'block';
         // document.querySelector('.btn1').style.display = 'none';
-        window.location.href = '/findSpace.html';
+        window.location.href = 'findSpace.html';
         emailInput.value = '';
         passWordInput.value = '';
     }).catch(function(err){
