@@ -4,11 +4,11 @@ const logInBtn = document.querySelector('.logIn-btn')
 const Url = 'http://localhost:3000'
 const UrlWebType = 'https://space-eye-web-surver.onrender.com'
 
-function logIn(a,b){
+function logIn(a, b) {
     axios.post(UrlWebType + '/login', {
         'email': a,
         'password': b,
-    }).then(function(response){
+    }).then(function (response) {
         console.log(response)
         const token = response.data.accessToken;
         const usersId = response.data.user.id;
@@ -19,48 +19,48 @@ function logIn(a,b){
         window.location.href = 'findSpace.html';
         emailInput.value = '';
         passWordInput.value = '';
-    }).catch(function(err){
+    }).catch(function (err) {
         console.log(err)
         // alert('登入失敗')
-        if(err.response.data === 'Email format is invalid'){
+        if (err.response.data === 'Email format is invalid') {
             showError('.email-warn')
-        }else if(email !== ''){
+        } else if (email !== '') {
             hideError('.email-warn')
         }
-        if(err.response.data === 'Incorrect password'){
+        if (err.response.data === 'Incorrect password') {
             showError('.Password-warn')
-        }else if(email !== ''){
+        } else if (email !== '') {
             hideError('.Password-warn')
         }
     })
 }
 
-logInBtn.addEventListener('click', function(e){
+logInBtn.addEventListener('click', function (e) {
     let email = emailInput.value.trim();
     let passWord = passWordInput.value.trim();
-    if(email === ''){
+    if (email === '') {
         showError('.email-warn')
-    }else if(email !== ''){
+    } else if (email !== '') {
         hideError('.email-warn')
     }
-    if(passWord === ''){
+    if (passWord === '') {
         showError('.Password-warn')
-    }else if(passWord !== ''){
+    } else if (passWord !== '') {
         hideError('.Password-warn')
     }
-    if(email !== '' && passWord !== ''){
-        logIn(email,passWord)
+    if (email !== '' && passWord !== '') {
+        logIn(email, passWord)
     }
 })
 
-emailInput.addEventListener('input', function() {
+emailInput.addEventListener('input', function () {
     if (emailInput.value !== '') {
         emailInput.setAttribute('id', 'email');
     } else {
         emailInput.removeAttribute('id', 'email');
     }
 });
-passWordInput.addEventListener('input', function() {
+passWordInput.addEventListener('input', function () {
     if (passWordInput.value !== '') {
         passWordInput.setAttribute('id', 'email');
     } else {
@@ -68,10 +68,10 @@ passWordInput.addEventListener('input', function() {
     }
 });
 
-function showError(select){
+function showError(select) {
     document.querySelector(select).style.display = 'block';
 }
-function hideError(select){
+function hideError(select) {
     document.querySelector(select).style.display = 'none';
 }
 

@@ -72,7 +72,7 @@ const dataToMap = () => {
     for (let i = 0; i < filteredMapData.length; i++) {
         let dataDetail = filteredMapData[i]
         let marker;
-        locatedX = dataDetail.location.latitude,
+        locatedX = dataDetail.location.latitude
         locatedY = dataDetail.location.longitude
         if (dataDetail.space === '0') {
             marker = L.marker([dataDetail.location.latitude, dataDetail.location.longitude], { icon: greyIcon })
@@ -80,7 +80,7 @@ const dataToMap = () => {
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <h5 class="card-title">${dataDetail.parkName}</h5>
-                <i class="save-like bi bi-suit-heart-fill" data-some-value="${dataDetail.location.latitude}"></i>
+                <i class="save-like bi bi-suit-heart-fill a" data-some-value="${dataDetail.location.latitude}"></i>
             </div>
             <div class="row">
                 <div class="col-5">地址:</div>
@@ -102,7 +102,7 @@ const dataToMap = () => {
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <h5 class="card-title">${dataDetail.parkName}</h5>
-                <i class="save-like bi bi-suit-heart-fill" data-some-value="${dataDetail.location.latitude}"></i>
+                <i class="save-like bi bi-suit-heart-fill a" data-some-value="${dataDetail.location.latitude}"></i>
             </div>
             <div class="row">
                 <div class="col-5">地址:</div>
@@ -123,6 +123,7 @@ const dataToMap = () => {
     }
     // console.log(locatedX, locatedY)
     map.flyTo([locatedX, locatedY], 16, { duration: 2 }); // 第三個參數是動畫持續時間（以秒為單位）
+    plusLike(filteredMapData);
 }
 //測試地圖上卡片監聽事件(目前無效)
 // mapLocated.addEventListener('click' , (e) => {
@@ -209,6 +210,7 @@ axios.get(UrlWebType + `/600/users/${usersId}`, {
         },
     })
     .then((response) => {
+        parsedLocalParkData()
         showMapCard.addEventListener('click' ,(e) => {
             let likeBtn = e.target
             addLikeParkToLocal(e)
@@ -216,7 +218,7 @@ axios.get(UrlWebType + `/600/users/${usersId}`, {
             if (likeBtn.textContent === '長期方案') {
                 optionPark = likeBtn.getAttribute('data-btnId');
                 localStorage.setItem('optionPark', optionPark);
-                window.location.href = "http://127.0.0.1:5501/Pages/parkingDetail.html"
+                window.location.href = "/pages/reserve.html"
             }
             if(likeBtn.textContent === '詳細資料'){
                 optionPark = likeBtn.getAttribute('data-btnId');
@@ -227,14 +229,12 @@ axios.get(UrlWebType + `/600/users/${usersId}`, {
         modalFooter.addEventListener('click' , (e) => {
             let likeBtn = e.target
             if(likeBtn.textContent === '預約停車' || likeBtn.textContent === '長期方案'){
-                window.location.href = "http://127.0.0.1:5501/Pages/parkingDetail.html"
-                console.log('aa')
+                window.location.href = "/pages/reserve.html"
             }
         })
         mapLocated.addEventListener('click' , (e) => {
             addLikeParkToLocal(e)
         })
-        parsedLocalParkData()
         const data = response.data;
         console.log('从受保护的端点获取的数据:', data);
     })
@@ -494,10 +494,12 @@ const plusLike = (aa) => {
         let locatedId = item.location.latitude;
         // console.log(locatedId)
         for (let i = 0; i < saveLikePark.length; i++) {
-            if (locatedId === saveLikePark[i]) {
+            if (locatedId.toString() === saveLikePark[i].toString()) {
                 let saveLikeElement = saveLikePark[i];
                 for (let x = 0; x < saveLikes.length; x++) {
+                    console.log(saveLikes[x])
                     if (saveLikeElement.toString() === saveLikes[x].getAttribute('data-some-value')) {
+                        console.log('執行')
                         saveLikes[x].classList.add('bi-suit-heart-broke');
                     }
                 }
@@ -637,6 +639,8 @@ const showRwdChoice = () => {
         console.log(area,road,getType,getSpaceOrNot,getParkValue)
         getMapDetailRwd(area,road,getType,getSpaceOrNot,getParkValue)
         dataToMap()
+        plusLike(filteredMapData);
+        console.log(filteredMapData)
         searchBg.classList.remove('show');
         setTimeout(() => {
             searchBg.style.display = 'none'

@@ -311,7 +311,7 @@ $dark:          $gray-900 !default;
 // scss-docs-start theme-colors-map
 $theme-colors: (
   "primary":    $primary,
-  "secondary":  #cbcbcb,//$secondary,
+  "secondary":  #8f8f8f,//$secondary,
   "success":    $success,
   "info":       $info,
   "warning":    $warning,
@@ -320,7 +320,8 @@ $theme-colors: (
   "dark":       $dark,
   "light-gray": #F2F2F2,
   "light-green": #93FF00,
-  "green-black": #1E1E1E
+  "green-black": #1E1E1E,
+  "dark-gray": #8d8d8d
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -644,6 +645,7 @@ $h6-font-size:                $font-size-base !default;
 
 // scss-docs-start font-sizes
 $font-sizes: (
+  7: 10px,
   1: $h1-font-size,
   2: $h2-font-size,
   3: $h3-font-size,
